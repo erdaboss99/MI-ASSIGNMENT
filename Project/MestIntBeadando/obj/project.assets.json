@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DEV\\MestIntBeadando\\MestIntBeadando\\MestIntBeadando.csproj",
+      "projectUniqueName": "D:\\DEV\\MestersegesIntelligenciaBeadando\\Project\\MestIntBeadando\\MestIntBeadando.csproj",
       "projectName": "MestIntBeadando",
-      "projectPath": "D:\\DEV\\MestIntBeadando\\MestIntBeadando\\MestIntBeadando.csproj",
+      "projectPath": "D:\\DEV\\MestersegesIntelligenciaBeadando\\Project\\MestIntBeadando\\MestIntBeadando.csproj",
       "packagesPath": "C:\\Users\\Roland\\.nuget\\packages\\",
-      "outputPath": "D:\\DEV\\MestIntBeadando\\MestIntBeadando\\obj\\",
+      "outputPath": "D:\\DEV\\MestersegesIntelligenciaBeadando\\Project\\MestIntBeadando\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Roland\\AppData\\Roaming\\NuGet\\NuGet.Config",
