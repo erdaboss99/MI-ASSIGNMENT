@@ -13,13 +13,13 @@ namespace MestIntBeadando.AllapotTer
 
         private string player;
 
+        private string[,] gameField;
+
         public string Player
         {
             get { return player; }
             set { player = value; }
         }
-
-        private string[,] gameField;
 
         public string[,] GameField
         {
@@ -82,7 +82,7 @@ namespace MestIntBeadando.AllapotTer
 
         public int Heurisztika()
         {
-            int suly = 0;
+            int weight = 0;
             if (Celfeltetel() == "O")
             {
                 return 100;
@@ -100,24 +100,24 @@ namespace MestIntBeadando.AllapotTer
                     {
                         if (i + 1 < 3 && gameField[i + 1, j] == Player)
                         {
-                            suly += 5;
+                            weight += 5;
                         }
                         if (j + 1 < 3 && gameField[i, j + 1] == Player)
                         {
-                            suly += 5;
+                            weight += 5;
                         }
                         if (i + 1 < 3 && j + 1 < 3 && gameField[i + 1, j + 1] == Player)
                         {
-                            suly += 5;
+                            weight += 5;
                         }
                         if (i - 1 >= 0 && j - 1 >= 0 && gameField[i - 1, j - 1] == Player)
                         {
-                            suly += 5;
+                            weight += 5;
                         }
                     }
                 }
             }
-            return suly;
+            return weight;
         }
 
     }
