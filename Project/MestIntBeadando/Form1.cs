@@ -1,4 +1,5 @@
 using MestIntBeadando.AllapotTer;
+using MestIntBeadando.Keresok;
 
 namespace MestIntBeadando
 {
@@ -37,7 +38,13 @@ namespace MestIntBeadando
                 allapot = op.Lepes(allapot);
                 CelfeltetelVizsgalat();
 
-               //TO-DO Negamax
+                Negamax negaMax = new Negamax();
+                Operator opComputer = negaMax.Ajanl(allapot);
+
+                Mezo mezoGep = gameField[opComputer.Where.X, opComputer.Where.Y];
+                Kirajzol(mezoGep);
+                allapot = opComputer.Lepes(allapot);
+                CelfeltetelVizsgalat();
 
             }
         }
