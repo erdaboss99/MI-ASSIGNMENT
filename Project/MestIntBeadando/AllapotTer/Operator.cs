@@ -8,52 +8,52 @@ namespace MestIntBeadando.AllapotTer
 {
     class Operator
     {
-        private string what;
-        private Point where;
-        private int weight;
+        private string mit;
+        private Point hova;
+        private int suly;
 
-        public string What
+        public string Mit
         {
-            get { return what; }
-            set { what = value; }
+            get { return mit; }
+            set { mit = value; }
         }
 
-        public Point Where
+        public Point Hova
         {
-            get { return where; }
-            set { where = value; }
+            get { return hova; }
+            set { hova = value; }
         }
 
-        public int Weight
+        public int Suly
         {
-            get { return weight; }
-            set { weight = value; }
+            get { return suly; }
+            set { suly = value; }
         }
 
-        public Operator(Point where, string what)
+        public Operator(Point hova, string mit)
         {
-            this.Where = where;
-            this.What = what;
+            this.Hova = hova;
+            this.Mit = mit;
         }
 
         public bool Elofeltetel(Allapot aktualisAllapot)
         {
-            return aktualisAllapot.GameField[Where.X, Where.Y] == null;
+            return aktualisAllapot.Palya[Hova.X, Hova.Y] == null;
         }
 
         public Allapot Lepes(Allapot aktualisAllapot)
         {
             Allapot ujAllapot = new Allapot();
-            ujAllapot.GameField = (string[,])aktualisAllapot.GameField.Clone();
+            ujAllapot.Palya = (string[,])aktualisAllapot.Palya.Clone();
 
-            ujAllapot.GameField[Where.X, Where.Y] = What;
-            if (What == "X")
+            ujAllapot.Palya[Hova.X, Hova.Y] = Mit;
+            if (Mit == "X")
             {
-                ujAllapot.Player = "O";
+                ujAllapot.Jatekos = "O";
             }
             else
             {
-                ujAllapot.Player = "X";
+                ujAllapot.Jatekos = "X";
             }
             return ujAllapot;
         }

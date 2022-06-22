@@ -9,60 +9,60 @@ namespace MestIntBeadando.Keresok
 {
     class Negamax
     {
-        int maxDepth = 2;
+        int maxMelyseg = 2;
 
         public Operator Ajanl(Allapot allapot)
         {
             List<Operator> ajanlottOperator = new List<Operator>();
 
-            for (int i = 0; i < Allapot.COLUMN_COUNT; i++)
+            for (int i = 0; i < Allapot.OSZLOP; i++)
             {
-                for (int j = 0; j < Allapot.ROW_COUNT; j++)
+                for (int j = 0; j < Allapot.SOR; j++)
                 {
-                    Operator actualOperator = new Operator(new Point(i, j), allapot.Player);
-                    if (actualOperator.Elofeltetel(allapot))
+                    Operator aktualisOperator = new Operator(new Point(i, j), allapot.Jatekos);
+                    if (aktualisOperator.Elofeltetel(allapot))
                     {
-                        Allapot ujAllapot = actualOperator.Lepes(allapot);
-                        Bejaras(ujAllapot, actualOperator, 0, 1);
-                        ajanlottOperator.Add(actualOperator);
+                        Allapot ujAllapot = aktualisOperator.Lepes(allapot);
+                        Bejaras(ujAllapot, aktualisOperator, 0, 1);
+                        ajanlottOperator.Add(aktualisOperator);
                     }
                 }
             }
 
-            ajanlottOperator = ajanlottOperator.OrderByDescending(o => o.Weight).ToList();
+            ajanlottOperator = ajanlottOperator.OrderByDescending(o => o.Suly).ToList();
 
             return ajanlottOperator[0];
         }
 
-        private void Bejaras(Allapot aktualisAllapot, Operator originalOperator, int depth, int sign)
+        private void Bejaras(Allapot aktualisAllapot, Operator eredetiOperator, int melyseg, int elojel)
         {
             if (aktualisAllapot.Celfeltetel() == "X" || aktualisAllapot.Celfeltetel() == "O")
             {
-                originalOperator.Weight = sign * aktualisAllapot.Heurisztika();
+                eredetiOperator.Suly = elojel * aktualisAllapot.Heurisztika();
             }
             else
             {
-                if (aktualisAllapot.Celfeltetel() != "Draw" && depth < maxDepth)
+                if (aktualisAllapot.Celfeltetel() != "Dontetlen" && melyseg < maxMelyseg)
                 {
                     int max = Int32.MinValue;
-                    for (int i = 0; i < Allapot.COLUMN_COUNT; i++)
+                    for (int i = 0; i < Allapot.OSZLOP; i++)
                     {
-                        for (int j = 0; j < Allapot.ROW_COUNT; j++)
+                        for (int j = 0; j < Allapot.SOR; j++)
                         {
-                            Operator actualOperator = new Operator(new Point(i, j), aktualisAllapot.Player);
-                            if (actualOperator.Elofeltetel(aktualisAllapot))
+                            Operator aktualisOperator = new Operator(new Point(i, j), aktualisAllapot.Jatekos);
+                            if (aktualisOperator.Elofeltetel(aktualisAllapot))
                             {
-                                Allapot allapot = actualOperator.Lepes(aktualisAllapot);
-                                int actualWeight = sign * allapot.Heurisztika();
-                                if (actualWeight > max)
+                                Allapot allapot = aktualisOperator.Lepes(aktualisAllapot);
+                                int aktualisSuly = elojel * allapot.Heurisztika();
+                                if (aktualisSuly > max)
                                 {
-                                    max = actualWeight;
+                                    max = aktualisSuly;
                                 }
-                                Bejaras(allapot, originalOperator, depth + 1, sign * -1);
+                                Bejaras(allapot, eredetiOperator, melyseg + 1, elojel * -1);
                             }
                         }
                     }
-                    originalOperator.Weight += max;
+                    eredetiOperator.Suly += max;
                 }
             }
         }

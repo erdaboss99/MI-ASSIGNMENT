@@ -5,21 +5,21 @@ namespace MestIntBeadando
 {
     public partial class Form1 : Form
     {
-        Mezo[,] gameField = new Mezo[Allapot.ROW_COUNT, Allapot.COLUMN_COUNT];
+        Mezo[,] palya = new Mezo[Allapot.SOR, Allapot.OSZLOP];
         Allapot allapot;
 
         public Form1()
         {
             allapot = new Allapot();
             InitializeComponent();
-            for (int i = 0; i < Allapot.ROW_COUNT; i++)
+            for (int i = 0; i < Allapot.SOR; i++)
             {
-                for (int j = 0; j < Allapot.COLUMN_COUNT; j++)
+                for (int j = 0; j < Allapot.OSZLOP; j++)
                 {
                     Mezo mezo = new Mezo(i, j);
                     mezo.Location = new Point(i * 100, j * 100);
                     mezo.Click += new EventHandler(mezoClick);
-                    gameField[i, j] = mezo;
+                    palya[i, j] = mezo;
                     Controls.Add(mezo);
                 }
             }
@@ -29,9 +29,9 @@ namespace MestIntBeadando
         {
             Mezo mezo = (Mezo)sender;
 
-            Point point = mezo.Point;
+            Point point = mezo.Pont;
 
-            Operator op = new Operator(point, allapot.Player);
+            Operator op = new Operator(point, allapot.Jatekos);
             if (op.Elofeltetel(allapot))
             {
                 Kirajzol(mezo);
@@ -39,11 +39,11 @@ namespace MestIntBeadando
                 CelfeltetelVizsgalat();
 
                 Negamax negaMax = new Negamax();
-                Operator opComputer = negaMax.Ajanl(allapot);
+                Operator opGep = negaMax.Ajanl(allapot);
 
-                Mezo mezoGep = gameField[opComputer.Where.X, opComputer.Where.Y];
+                Mezo mezoGep = palya[opGep.Hova.X, opGep.Hova.Y];
                 Kirajzol(mezoGep);
-                allapot = opComputer.Lepes(allapot);
+                allapot = opGep.Lepes(allapot);
                 CelfeltetelVizsgalat();
 
             }
@@ -53,13 +53,13 @@ namespace MestIntBeadando
         {
             if (allapot.Celfeltetel() != null)
             {
-                if (allapot.Celfeltetel() == "Draw")
+                if (allapot.Celfeltetel() == "Dontetlen")
                 {
                     MessageBox.Show(allapot.Celfeltetel());
                 }
                 else
                 {
-                    MessageBox.Show("Congratulations! Winner: " + allapot.Celfeltetel());
+                    MessageBox.Show("Gratulalok! Nyertes: " + allapot.Celfeltetel());
                 }
                 this.Close();
                 Application.Exit();
@@ -68,8 +68,8 @@ namespace MestIntBeadando
 
         private void Kirajzol(Mezo mezo)
         {
-            mezo.Text = allapot.Player;
-            if (allapot.Player == "X")
+            mezo.Text = allapot.Jatekos;
+            if (allapot.Jatekos == "X")
             {
                 mezo.ForeColor = Color.Blue;
             }
